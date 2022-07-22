@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import styled from 'styled-components/native';
 const { height } = Dimensions.get('window');
 
@@ -12,6 +12,7 @@ export const SortByText = styled.Text`
   font-size: 14px;
   color: #979797;
   margin-left: 16px;
+  padding-vertical: ${Platform.OS === 'android' ? 0 : 12}px;
 `;
 
 export const Card = styled.View`

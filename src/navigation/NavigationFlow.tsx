@@ -14,7 +14,7 @@ import {
   useGlobalContext,
 } from '../context/FirstTimeAppProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -55,6 +55,11 @@ export default function Router() {
       onReady={() => {
         setTimeout(() => {
           StatusBar.setBarStyle('light-content', true);
+          if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor('#2360b1');
+          } else {
+            StatusBar.setBarStyle('dark-content', true);
+          }
           SplashScreen.hide();
         }, 0);
       }}>

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import useSWR from 'swr';
 import React, { useCallback } from 'react';
-import { Alert, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import FighterRowItem from '../../components/FighterRowItem';
@@ -50,6 +50,7 @@ const Home = ({ route }) => {
   }, [fightersData]);
 
   useEffect(() => {
+    StatusBar.setBarStyle('dark-content', true);
     getCategories();
   }, []);
 

@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
-import { View, Image, Alert } from 'react-native';
+import { View, Image, Alert, Platform, Text } from 'react-native';
 import ViewPager from 'react-native-pager-view';
+import { Button } from 'react-native-paper';
 import { useGlobalContext } from '../../context/FirstTimeAppProvider';
 import {
   DotContainer,
@@ -40,7 +41,7 @@ export const OnboardingCarousel: FC = () => {
         style={{
           height: '55%',
           width: '100%',
-          top: '23%',
+          top: Platform.OS === 'android' ? '23%' : '10%',
         }}>
         <ViewPager
           style={{
@@ -61,8 +62,8 @@ export const OnboardingCarousel: FC = () => {
             <Image
               style={{
                 width: '88%',
-                height: '100%',
-                bottom: '12%',
+                height: Platform.OS === 'android' ? '80%' : '100%',
+                bottom: Platform.OS === 'android' ? '2%' : '12%',
                 alignSelf: 'center',
               }}
               resizeMode="contain"
@@ -72,7 +73,7 @@ export const OnboardingCarousel: FC = () => {
               style={{
                 height: '25%',
                 position: 'absolute',
-                bottom: -50,
+                bottom: Platform.OS === 'android' ? -30 : -50,
               }}>
               {data[0].text}
             </Label>
@@ -94,7 +95,13 @@ export const OnboardingCarousel: FC = () => {
               resizeMode="contain"
               source={data[1].image}
             />
-            <Label style={{ height: '20%', bottom: -50 }}>{data[1].text}</Label>
+            <Label
+              style={{
+                height: '20%',
+                bottom: Platform.OS === 'android' ? -30 : -50,
+              }}>
+              {data[1].text}
+            </Label>
           </View>
           <View
             key="slide_3"
@@ -113,7 +120,13 @@ export const OnboardingCarousel: FC = () => {
               resizeMode="contain"
               source={data[2].image}
             />
-            <Label style={{ height: '20%', bottom: -50 }}>{data[2].text}</Label>
+            <Label
+              style={{
+                height: '20%',
+                bottom: Platform.OS === 'android' ? -30 : -50,
+              }}>
+              {data[2].text}
+            </Label>
           </View>
         </ViewPager>
         <DotContainer>
@@ -124,23 +137,61 @@ export const OnboardingCarousel: FC = () => {
         </DotContainer>
       </View>
       {selectedPage === 2 && (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 70,
-            right: 20,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-          }}>
-          <NextButton onPress={() => setIsFirstTimeOpen(false)}>
-            <NextImage source={nextImage} />
-          </NextButton>
-        </View>
+        <>
+          {Platform.OS === 'android' ? (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 30,
+                right: 20,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              }}>
+              <NextButton onPress={() => setIsFirstTimeOpen(false)}>
+                <NextImage source={nextImage} />
+              </NextButton>
+            </View>
+          ) : (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 70,
+                width: '100%',
+                flex: 1,
+                alignItems: 'center',
+                marginLeft: 100,
+                height: 50,
+                backgroundColor: 'transparent',
+
+                right: 0,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              }}>
+              <Button
+                style={{
+                  width: '80%',
+                  height: '100%',
+                  justifyContent: 'center',
+                  borderRadius: 22,
+                }}
+                labelStyle={{ color: '#1A90F0', fontSize: 16 }}
+                color="white"
+                mode="contained">
+                Let's Go
+              </Button>
+            </View>
+          )}
+        </>
       )}
     </View>
   );

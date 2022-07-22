@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import React, { useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { Alert, Platform, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import Header from '../../components/Header';
 import RadioButton from '../../components/RadioButton/RadioButton';
@@ -62,8 +62,10 @@ export default function Filter() {
         onBack={() => navigation.goBack()}
       />
       <Container>
+        {Platform.OS === 'ios' && <SortByText>Sort By</SortByText>}
+
         <Card>
-          <SortByText>Sort By</SortByText>
+          {Platform.OS === 'android' && <SortByText>Sort By</SortByText>}
           {filters.map((data, index) => {
             return (
               <RadioButton
@@ -72,13 +74,14 @@ export default function Filter() {
                 status={index === selectedIndex ? 'checked' : 'unchecked'}
                 onPress={() => setselectedIndex(index)}
                 label={data.label}
-                color="#007AFF"
+                color={Platform.OS === 'android' ? '#007AFF' : 'white'}
               />
             );
           })}
         </Card>
-        <Card style={{ marginTop: 15 }}>
-          <SortByText>Filter By</SortByText>
+        {Platform.OS === 'ios' && <SortByText>Filter By</SortByText>}
+        <Card style={{ marginTop: Platform.OS === 'android' ? 15 : 0 }}>
+          {Platform.OS === 'android' && <SortByText>Filter By</SortByText>}
           <Stars
             rate={rating}
             onTapStar={rate => {
@@ -89,8 +92,13 @@ export default function Filter() {
         </Card>
         <BottomContainer>
           <Button
-            style={{ width: '50%', marginRight: 10, justifyContent: 'center' }}
-            color="white"
+            style={{
+              width: '50%',
+              marginRight: 10,
+              justifyContent: 'center',
+              borderRadius: Platform.OS === 'android' ? 0 : 22,
+            }}
+            color={Platform.OS === 'android' ? 'white' : '#DADADA'}
             mode="contained"
             onPress={() => {
               navigation.navigate('Home', {
@@ -101,8 +109,13 @@ export default function Filter() {
             Reset
           </Button>
           <Button
-            style={{ width: '50%', marginLeft: 10, justifyContent: 'center' }}
-            color="white"
+            style={{
+              width: '50%',
+              marginLeft: 10,
+              justifyContent: 'center',
+              borderRadius: Platform.OS === 'android' ? 0 : 22,
+            }}
+            color={Platform.OS === 'android' ? 'white' : '#296DF1'}
             mode="contained"
             onPress={() => {
               navigation.navigate('Home', {

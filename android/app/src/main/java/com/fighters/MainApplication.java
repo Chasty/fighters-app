@@ -1,6 +1,5 @@
 package com.fighters;
 
-import android.os.Bundle; // here
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -13,7 +12,6 @@ import com.facebook.soloader.SoLoader;
 import com.fighters.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import org.devio.rn.splashscreen.SplashScreen; // here
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -55,7 +53,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     // If you opted-in for the New Architecture, we enable the TurboModule system
-    SplashScreen.show(this);  // here
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
