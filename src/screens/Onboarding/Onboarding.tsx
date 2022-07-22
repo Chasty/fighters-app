@@ -184,6 +184,7 @@ export const OnboardingCarousel: FC = () => {
                   justifyContent: 'center',
                   borderRadius: 22,
                 }}
+                onPress={() => setIsFirstTimeOpen(false)}
                 labelStyle={{ color: '#1A90F0', fontSize: 16 }}
                 color="white"
                 mode="contained">
